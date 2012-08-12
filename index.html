@@ -33,6 +33,7 @@
 		<script type="text/javascript" src="./javascript/file-row.js"></script>
 		<script type="text/javascript" src="./javascript/dialog.js"></script>
 		<script type="text/javascript" src="./javascript/formatter.js"></script>
+		<script type="text/javascript" src="./javascript/notifications.js"></script>
 		<title>Transmission Web Interface</title>
 	</head>
 	<body id="transmission_body">
@@ -212,8 +213,6 @@
 				</div>
 				<div class="prefs-section">
 					<div class="title">Details</div>
-					<div class="row"><div class="key">ID:</div><div class="value" id="inspector-info-torrentid">&nbsp;</div></div>
-					<div class="row"><div class="key">Added On:</div><div class="value" id="inspector-info-addedon">&nbsp;</div></div>
 					<div class="row"><div class="key">Size:</div><div class="value" id="inspector-info-size">&nbsp;</div></div>
 					<div class="row"><div class="key">Location:</div><div class="value" id="inspector-info-location">&nbsp;</div></div>
 					<div class="row"><div class="key">Hash:</div><div class="value" id="inspector-info-hash">&nbsp;</div></div>
@@ -315,6 +314,7 @@
 						<li id="tipjar">Transmission Tip Jar</li>
 						<li class="separator"></li>
 						<li id="statistics">Statistics</li>
+						<li id="toggle_notifications" style="display: none">Notifcations</li>
 						<li class="separator"></li>
 						<li>Total Download Rate
 							<ul id="footer_download_rate_menu">
@@ -396,6 +396,9 @@
 				<li id="context_verify">Verify Local Data</li>
 				<li class="separator"></li>
 				<li id="context_reannounce">Ask tracker for more peers</li>
+				<li class="separator"></li>
+				<li id="context_select_all">Select All</li>
+				<li id="context_deselect_all">Deselect All</li>
 			</ul>
 		</div>
 

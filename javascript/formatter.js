@@ -214,8 +214,6 @@ Transmission.fmt = (function()
 
 		timestamp: function(seconds)
 		{
-			var monthNames = [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ];
-
 			if (!seconds)
 				return 'N/A';
 
@@ -241,25 +239,7 @@ Transmission.fmt = (function()
 				}
 			}
 			else{
-				var diff = (((new Date()).getTime() - myDate.getTime()) / 1000);
-				var day_diff = Math.floor(diff / 86400);
-				
-				var days_ago = (day_diff == 0) && (
-							diff < 60 && "just now" ||
-							diff < 120 && "1 minute ago" ||
-							diff < 3600 && Math.floor( diff / 60 ) + " minutes ago" ||
-							diff < 7200 && "1 hour ago" ||
-							diff < 86400 && Math.floor( diff / 3600 ) + " hours ago"
-						) ||
-					day_diff == 1 && "Yesterday" ||
-					day_diff < 7 && day_diff + " days ago" ||
-					day_diff < 31 && Math.ceil( day_diff / 7 ) + " weeks ago" ||
-					day_diff < 365 && Math.ceil( day_diff / 31 ) + " months ago";
-
-				days_ago = ' [ '+days_ago+' ] ';
-
-				//date = myDate.toDateString();
-				date = myDate.getDate()+' '+ monthNames[myDate.getMonth()];
+				date = myDate.toDateString();
 			}
 
 			var hours = myDate.getHours();
@@ -283,9 +263,9 @@ Transmission.fmt = (function()
 					seconds = "0" + seconds;
 			}
 
-			time = [hours, minutes].join(':');
+			time = [hours, minutes, seconds].join(':');
 
-			return [date, time, period, days_ago].join(' ');
+			return [date, time, period].join(' ');
 		},
 
 		plural: function(i, word)
