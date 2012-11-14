@@ -256,7 +256,7 @@ Transmission.fmt = (function()
                     day_diff < 31 && Math.ceil( day_diff / 7 ) + " weeks ago" ||
                     day_diff < 365 && Math.ceil( day_diff / 31 ) + " months ago";
 
-                days_ago = ' [ '+days_ago+' ] ';
+                days_ago = ' <b>[ '+days_ago+' ]</b> ';
 
                 //date = myDate.toDateString();
                 date = myDate.getDate()+' '+ monthNames[myDate.getMonth()];
@@ -285,7 +285,7 @@ Transmission.fmt = (function()
 
 			time = [hours, minutes, seconds].join(':');
 
-			return [date, time, period].join(' ');
+			return [days_ago, date, time, period].join(' ');
 		},
 
 		ngettext: function(msgid, msgid_plural, n)
