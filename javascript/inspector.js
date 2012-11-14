@@ -396,7 +396,7 @@ function Inspector(controller) {
         }
         if(!str)
             str = none;  
-        setTextContent(e.comment_lb, str.replace(/(https?|ftp):\/\/([\w\-]+(\.[\w\-]+)*(\.[a-z]{2,4})?)(\d{1,5})?(\/([^<>\s]*))?/g, '<a target="_blank" href="$&">$&</a>'));
+        setTextContent(e.comment_lb, str);
 
         //
         //  origin
@@ -821,10 +821,6 @@ function Inspector(controller) {
         data.elements.name_lb           = $('#torrent_inspector_name')[0];
         data.elements.torrentid_lb      = $('#inspector-info-torrentid')[0];
         data.elements.addedon_lb        = $('#inspector-info-addedon')[0];
-
-        // file page's buttons
-        $('#select-all-files').click(selectAllFiles);
-        $('#deselect-all-files').click(deselectAllFiles);
 
         // force initial 'N/A' updates on all the pages
         updateInspector();
