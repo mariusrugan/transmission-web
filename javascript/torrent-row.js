@@ -69,6 +69,8 @@ TorrentRendererHelper.renderProgressbar = function(controller, t, progressbar)
 	var e, style, width, display,
 	    info = TorrentRendererHelper.getProgressInfo(controller, t);
 
+	console.log(info);
+
 	// update the complete progressbar
 	e = progressbar.complete;
 	style = e.style;
