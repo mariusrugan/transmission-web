@@ -90,12 +90,12 @@ TorrentRendererHelper.renderProgressbar = function(controller, t, progressbar)
 
 TorrentRendererHelper.formatUL = function(t)
 {
-	return '&uarr; ' + Transmission.fmt.speedBps(t.getUploadSpeed());
+	return " U:" + Transmission.fmt.speedBps(t.getUploadSpeed());
 };
 
 TorrentRendererHelper.formatDL = function(t)
 {
-	return '&darr; ' + Transmission.fmt.speedBps(t.getDownloadSpeed());
+	return " D:" + Transmission.fmt.speedBps(t.getDownloadSpeed());
 };
 
 /****
@@ -230,8 +230,7 @@ TorrentRendererFull.prototype =
 	render: function(controller, t, root)
 	{
 		// name
-		setTextContent(root._name_container, t.getName());
-
+		setTextContent(root._name_container,  t.getId()+'. '+t.getName());
 		// progressbar
 		TorrentRendererHelper.renderProgressbar(controller, t, root._progressbar);
 
@@ -319,7 +318,7 @@ TorrentRendererCompact.prototype =
 		var is_stopped = t.isStopped();
 		var e = root._name_container;
 		$(e).toggleClass('paused', is_stopped);
-		setTextContent(e, t.getName());
+		setTextContent(e, '['+t.getId()+']'+' '+t.getName());
 
 		// peer details
 		var has_error = t.getError() !== Torrent._ErrNone;

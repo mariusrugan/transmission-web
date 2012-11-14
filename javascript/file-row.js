@@ -137,7 +137,8 @@ function FileRow(torrent, i)
 
 		name = file.name || 'Unknown';
 		name = name.substring(name.lastIndexOf('/')+1);
-		name = name.replace(/([\/_\.])/g, "$1&#8203;");
+		//Commented out: mariusrugan@gmail.com
+		//name = name.replace(/([\/_\.])/g, "$1&#8203;");
 		e = document.createElement('div');
 		e.className = "inspector_torrent_file_list_entry_name";
 		setTextContent(e, name);

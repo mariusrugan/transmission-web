@@ -450,6 +450,43 @@ function Inspector(controller) {
             }
         }
         setTextContent(e.foldername_lb, str);
+
+
+        //
+        //  Torrent ID
+        //
+        
+        if(torrents.length < 1)
+            str = none;
+        else {
+            str = torrents[0].getId();
+            for(i=0; t=torrents[i]; ++i) {
+                if(str != t.getId()) {
+                    str = mixed;
+                    break;
+                }
+            }
+        }
+        setTextContent(e.torrentid_lb, str);
+
+
+        //
+        //  Added On
+        //
+        
+        if(torrents.length < 1)
+            str = none;
+        else {
+            str = Transmission.fmt.timestamp(torrents[0].getDateAdded());
+            for(i=0; t=torrents[i]; ++i) {
+                if(str != Transmission.fmt.timestamp(t.getDateAdded())) {
+                    str = mixed;
+                    break;
+                }
+            }
+        }
+        setInnerHTML(e.addedon_lb, str);
+
     },
 
     /****
@@ -714,22 +751,24 @@ function Inspector(controller) {
         data.elements.peers_list     = $('#inspector_peers_list')[0];
         data.elements.trackers_list  = $('#inspector_trackers_list')[0];
 
-	data.elements.have_lb           = $('#inspector-info-have')[0];
-	data.elements.availability_lb   = $('#inspector-info-availability')[0];
-	data.elements.downloaded_lb     = $('#inspector-info-downloaded')[0];
-	data.elements.uploaded_lb       = $('#inspector-info-uploaded')[0];
-	data.elements.state_lb          = $('#inspector-info-state')[0];
-	data.elements.running_time_lb   = $('#inspector-info-running-time')[0];
-	data.elements.remaining_time_lb = $('#inspector-info-remaining-time')[0];
-	data.elements.last_activity_lb  = $('#inspector-info-last-activity')[0];
-	data.elements.error_lb          = $('#inspector-info-error')[0];
-	data.elements.size_lb           = $('#inspector-info-size')[0];
-	data.elements.foldername_lb     = $('#inspector-info-location')[0];
-	data.elements.hash_lb           = $('#inspector-info-hash')[0];
-	data.elements.privacy_lb        = $('#inspector-info-privacy')[0];
-	data.elements.origin_lb         = $('#inspector-info-origin')[0];
-	data.elements.comment_lb        = $('#inspector-info-comment')[0];
+        data.elements.have_lb           = $('#inspector-info-have')[0];
+        data.elements.availability_lb   = $('#inspector-info-availability')[0];
+        data.elements.downloaded_lb     = $('#inspector-info-downloaded')[0];
+        data.elements.uploaded_lb       = $('#inspector-info-uploaded')[0];
+        data.elements.state_lb          = $('#inspector-info-state')[0];
+        data.elements.running_time_lb   = $('#inspector-info-running-time')[0];
+        data.elements.remaining_time_lb = $('#inspector-info-remaining-time')[0];
+        data.elements.last_activity_lb  = $('#inspector-info-last-activity')[0];
+        data.elements.error_lb          = $('#inspector-info-error')[0];
+        data.elements.size_lb           = $('#inspector-info-size')[0];
+        data.elements.foldername_lb     = $('#inspector-info-location')[0];
+        data.elements.hash_lb           = $('#inspector-info-hash')[0];
+        data.elements.privacy_lb        = $('#inspector-info-privacy')[0];
+        data.elements.origin_lb         = $('#inspector-info-origin')[0];
+        data.elements.comment_lb        = $('#inspector-info-comment')[0];
         data.elements.name_lb           = $('#torrent_inspector_name')[0];
+        data.elements.torrentid_lb      = $('#inspector-info-torrentid')[0];
+        data.elements.addedon_lb        = $('#inspector-info-addedon')[0];
 
         // file page's buttons
         $('#select-all-files').click(selectAllFiles);
