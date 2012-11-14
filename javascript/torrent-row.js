@@ -90,12 +90,12 @@ TorrentRendererHelper.renderProgressbar = function(controller, t, progressbar)
 
 TorrentRendererHelper.formatUL = function(t)
 {
-	return " U:" + Transmission.fmt.speedBps(t.getUploadSpeed());
+	return '↑ ' + Transmission.fmt.speedBps(t.getUploadSpeed());
 };
 
 TorrentRendererHelper.formatDL = function(t)
 {
-	return " D:" + Transmission.fmt.speedBps(t.getDownloadSpeed());
+	return '↓ ' + Transmission.fmt.speedBps(t.getDownloadSpeed());
 };
 
 /****
@@ -148,26 +148,59 @@ TorrentRendererFull.prototype =
 
 	getPeerDetails: function(t)
 	{
-		var err;
+		var err,
+		    peer_count,
+		    webseed_count,
+		    fmt = Transmission.fmt;
+
 		if ((err = t.getErrorMessage()))
 			return err;
 
 		if (t.isDownloading())
+		{
+			peer_count = t.getPeersConnected();
+			webseed_count = t.getWebseedsSendingToUs();
+
+			if (webseed_count && peer_count)
+			{
+				// Downloading from 2 of 3 peer(s) and 2 webseed(s)
+				return [ 'Downloading from',
+				         t.getPeersSendingToUs(),
+				         'of',
+				         fmt.countString('peer','peers',peer_count),
+				         'and',
+				         fmt.countString('web seed','web seeds',webseed_count),
+				         '-',
+				         TorrentRendererHelper.formatDL(t),
+				         TorrentRendererHelper.formatUL(t) ].join(' ');
+			}
+			else if (webseed_count)
+			{
+				// Downloading from 2 webseed(s)
+				return [ 'Downloading from',
+				         fmt.countString('web seed','web seeds',webseed_count),
+				         '-',
+				         TorrentRendererHelper.formatDL(t),
+				         TorrentRendererHelper.formatUL(t) ].join(' ');
+			}
+			else
+			{
+				// Downloading from 2 of 3 peer(s)
 			return [ 'Downloading from',
 			         t.getPeersSendingToUs(),
 			         'of',
-			         t.getPeersConnected(),
-			         'peers',
+				         fmt.countString('peer','peers',peer_count),
 			         '-',
 			         TorrentRendererHelper.formatDL(t),
 			         TorrentRendererHelper.formatUL(t) ].join(' ');
+			}
+		}
 
 		if (t.isSeeding())
 			return [ 'Seeding to',
 			         t.getPeersGettingFromUs(),
 			         'of',
-			         t.getPeersConnected(),
-			         'peers',
+			         fmt.countString ('peer','peers',t.getPeersConnected()),
 			         '-',
 			         TorrentRendererHelper.formatUL(t) ].join(' ');
 
@@ -361,13 +394,6 @@ TorrentRow.prototype =
 	},
 	isSelected: function() {
 		return this.getElement().className.indexOf('selected') !== -1;
-	},
-	setSelected: function(flag) {
-		$(this.getElement()).toggleClass('selected', flag);
-	},
-
-	getToggleRunningButton: function() {
-		return this.getElement()._toggle_running_button;
 	},
 
 	getTorrent: function() {
