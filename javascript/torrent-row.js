@@ -69,8 +69,6 @@ TorrentRendererHelper.renderProgressbar = function(controller, t, progressbar)
 	var e, style, width, display,
 	    info = TorrentRendererHelper.getProgressInfo(controller, t);
 
-	console.log(info);
-
 	// update the complete progressbar
 	e = progressbar.complete;
 	style = e.style;
@@ -352,8 +350,9 @@ TorrentRendererCompact.prototype =
 		// name
 		var is_stopped = t.isStopped();
 		var e = root._name_container;
+		var eta = (t.isDownloading()) ? 'ETA: ' + Transmission.fmt.timeInterval(t.fields.eta) : '';
 		$(e).toggleClass('paused', is_stopped);
-		setTextContent(e, '['+t.getId()+']'+' '+t.getName());
+		setTextContent(e, '['+t.getId()+']' + ' '+t.getName() + ' ' + eta);
 
 		// peer details
 		var has_error = t.getError() !== Torrent._ErrNone;
